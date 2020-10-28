@@ -1,0 +1,21 @@
+import logging
+import dramatiq
+
+logging.basicConfig(
+    level=logging.INFO
+)
+
+from dramatiq.brokers.redis import RedisBroker
+dramatiq.set_broker(RedisBroker(
+    host='{{ dramatiq_worker_broker_host }}',
+    {% if dramatiq_worker_broker_password %}password='{{ dramatiq_worker_broker_password }}'{% endif %}
+))
+
+{{ dramatiq_worker_code_block }}
+
+{% for actor in dramatiq_worker_actors %}
+from {{ actor.from }} import {{ actor.callable }}
+{{ actor.callable }} = dramatiq.actor({{ actor.callable }}
+    {% if actor.extra_args %}, {{ actor.extra_args }} {% endif %}
+)
+{% endfor %}

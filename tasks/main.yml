@@ -1,0 +1,48 @@
+---
+
+- become: True
+  block:
+  
+  - name: Install required system packages
+    package:
+      name: "{{ item }}"
+      state: installed
+    with_items:
+      - python-virtualenv
+      - python3-devel
+      - openldap-devel
+
+  - name: Create the working directory
+    file:
+      path: "{{ dramatiq_worker_path }}"
+      mode: 0700
+      owner: "{{ dramatiq_worker_user }}"
+      state: directory
+
+  - name: Install the packages into the virtualenv
+    pip:
+      virtualenv: "{{ dramatiq_worker_path }}/venv"
+      virtualenv_python: "python3"
+      name: "{{ dramatiq_worker_required_packages + dramatiq_worker_additional_packages }}"
+      state: present
+
+  - name: Render the broker and start scripts
+    template:
+      src: "{{ item }}.j2"
+      dest: "{{ dramatiq_worker_path }}/{{ item }}"
+      mode: 0750
+    with_items:
+      - broker.py
+      - start.sh
+
+  - name: Render the service unit file
+    template:
+      src: "dramatiq_worker.service.j2"
+      dest: "/etc/systemd/system/dramatiq_worker.service"
+   
+  - name: Start and enable the service
+    systemd:
+      daemon_reload: yes
+      name: "dramatiq_worker.service"
+      state: started
+      enabled: yes

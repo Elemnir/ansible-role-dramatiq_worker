@@ -1,0 +1,13 @@
+[Unit]
+Description=Dramatiq Worker Daemon
+After=network.target
+
+[Service]
+User={{ dramatiq_worker_user }}
+PIDFile=/run/dramatiq_worker/pid
+WorkingDirectory={{ dramatiq_worker_path }}
+ExecStart={{ dramatiq_worker_path }}/start.sh
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

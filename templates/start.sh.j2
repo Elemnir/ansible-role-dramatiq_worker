@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd {{ dramatiq_worker_path }}
+
+source venv/bin/activate
+
+dramatiq --queues "{{ dramatiq_worker_listen_queues }}" \
+    --processes {{ dramatiq_worker_process_count }} \
+    --threads {{ dramatiq_worker_thread_count }} broker

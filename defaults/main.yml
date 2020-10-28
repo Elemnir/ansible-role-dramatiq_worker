@@ -1,0 +1,24 @@
+---
+
+dramatiq_worker_path: '/var/lib/dramatiq_worker'
+dramatiq_worker_user: root
+
+dramatiq_worker_broker_host: 'localhost'
+dramatiq_worker_broker_password: ''
+
+dramatiq_worker_code_block: ''
+
+dramatiq_worker_listen_queues: ''
+dramatiq_worker_process_count: 1
+dramatiq_worker_thread_count: 1
+
+dramatiq_worker_required_packages:
+  - dramatiq
+  - redis
+
+dramatiq_worker_additional_packages: []
+
+#dramatiq_worker_actors:
+# - from:
+#   callable:
+#   extra_args:
