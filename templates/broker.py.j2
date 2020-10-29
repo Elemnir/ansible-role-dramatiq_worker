@@ -16,6 +16,6 @@ dramatiq.set_broker(RedisBroker(
 {% for actor in dramatiq_worker_actors %}
 from {{ actor.from }} import {{ actor.callable }}
 {{ actor.callable }} = dramatiq.actor({{ actor.callable }}
-    {% if actor.extra_args %}, {{ actor.extra_args }} {% endif %}
+    {% if 'extra_args' in actor and actor.extra_args %}, {{ actor.extra_args }} {% endif %}
 )
 {% endfor %}
