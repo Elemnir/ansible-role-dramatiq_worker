@@ -2,7 +2,7 @@
  Ansible Role: dramatiq_worker
 ===============================
 
-Role description here.
+An Ansible role for setting up a Dramatiq worker service.
 
 ----------------
  Role Variables
