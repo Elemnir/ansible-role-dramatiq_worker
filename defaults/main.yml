@@ -18,7 +18,7 @@ dramatiq_worker_required_packages:
 
 dramatiq_worker_additional_packages: []
 
-#dramatiq_worker_actors:
+dramatiq_worker_actors: []
 # - from:
 #   callable:
 #   extra_args:
