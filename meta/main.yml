@@ -1,0 +1,19 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: dramatiq_worker
+  author: Adam Howard
+  description: Sets up a Dramatiq worker service for processing queued tasks. Uses the Redis Broker.
+  license: "license (BSD)"
+  min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+  galaxy_tags:
+    - automation
+    - python
+    - devops
+    - system
